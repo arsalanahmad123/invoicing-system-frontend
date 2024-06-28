@@ -1,0 +1,6 @@
+.invoice-logo {
+    width: 300px;
+    background-image: url('./assets/logo.svg');
+    background-repeat: no-repeat;
+    margin-left: 100px;
+}
