@@ -155,7 +155,7 @@ const Dashboard = () => {
                                 </td>
                             </tr>
                         ))}
-                        {invoices?.length === 0 && (
+                        {invoices?.length === 0 && !loading && (
                             <tr>
                                 <td colSpan={6} className='text-center'>
                                     No invoices found

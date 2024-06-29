@@ -47,6 +47,7 @@ const GenerateInvoice = () => {
             total === 0
         ) {
             toast.error('All fields are required')
+            setLoading(false)
             return
         }
 
