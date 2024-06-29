@@ -18,16 +18,26 @@ const Dashboard = () => {
 
     const getInvoices = async () => {
         try {
-            const response = await api.get('/api/invoice')
-            if (response.status === 200) {
-                setInvoices(response.data.data)
+            const token = localStorage.getItem('token')
+            if (token) {
+                const response = await api.get('/api/invoice', {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                if (response.status === 200) {
+                    setInvoices(response.data.data)
+                }
             }
         } catch (error) {
             console.log(error)
         }
     }
     useEffect(() => {
-        getInvoices()
+        const token = localStorage.getItem('token')
+        if (token) {
+            getInvoices()
+        } else {
+            console.log('Token is not available')
+        }
     }, [])
 
     const handleDate = (date: string) => {
