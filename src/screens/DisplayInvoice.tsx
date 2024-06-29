@@ -40,7 +40,7 @@ const DisplayInvoice = () => {
         <div className='max-w-full mx-auto p-4 bg-white shadow-md'>
             <header className='flex justify-between items-center  pb-4 mb-4 relative'>
                 <div className='absolute -top-56 -left-32 h-[500px] w-[500px] rounded-full bg-blue-900 flex justify-center'>
-                    <div className='mt-[300px] invoice-logo'></div>
+                    <div className='mt-[250px] invoice-logo'></div>
                 </div>
                 <div></div>
                 <div className='text-primary text-7xl font-extrabold'>
@@ -148,18 +148,18 @@ const DisplayInvoice = () => {
                 </div>
             </section>
 
-            <footer className='border-t pt-4'>
-                <p className='text-center mb-2'>
-                    <strong>Terms & Conditions:</strong>
-                </p>
-                <p className='text-center mb-2'>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                </p>
-                <p className='text-center text-gray-500'>
-                    Thank you for your business
-                </p>
+            <footer className='border-t pt-4 text-center'>
+                <span className='font-semibold text-gray-700'>
+                    2024 © all rights reserved by{' '}
+                    <a
+                        className='text-blue-500 hover:text-blue-600'
+                        href='
+                    https://solfordllc.com
+                '
+                    >
+                        solfordllc.com
+                    </a>
+                </span>
             </footer>
         </div>
     )
