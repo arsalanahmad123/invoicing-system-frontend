@@ -1,10 +1,9 @@
 import { useNavigate } from 'react-router-dom'
-import { api } from '../api/api'
 import { useAuth } from '../Context/AuthContext'
 
 const Navbar = () => {
     const navigate = useNavigate()
-    const { setLoggedIn, setUser } = useAuth()
+    const { setLoggedIn, setUser, setToken } = useAuth()
 
     const handleClick = () => {
         navigate('/generate-invoice')
@@ -12,13 +11,13 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            const response = await api.post('/api/auth/logout')
-            if (response.status === 200) {
-                setLoggedIn(false)
-                setUser(null)
-                localStorage.removeItem('user')
-                localStorage.removeItem('expiry')
-            }
+            localStorage.removeItem('user')
+            localStorage.removeItem('token')
+            localStorage.removeItem('loggedIn')
+            localStorage.removeItem('expiry')
+            setLoggedIn(false)
+            setUser(null)
+            setToken(null)
             navigate('/login')
         } catch (error) {
             console.log(error)

@@ -7,15 +7,18 @@ import { useAuth } from '../Context/AuthContext'
 
 const Login = () => {
     const [email, setEmail] = useState('')
-    const { setUser, setLoggedIn } = useAuth()
+    const { setUser, setLoggedIn, setToken } = useAuth()
+    const [loading, setLoading] = useState(false)
 
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
     const handleLogin = async () => {
         try {
+            setLoading(true)
             if (email === '' || password === '') {
                 toast.error('All fields are required')
+                setLoading(false)
                 return
             }
             const response = await api.post('/api/auth/login', {
@@ -26,16 +29,22 @@ const Login = () => {
             if (response.status === 200) {
                 localStorage.setItem('user', JSON.stringify(response.data))
                 setLoggedIn(true)
-                setUser(response.data)
+                setUser(response.data.data)
+                setToken(response.data.access_token)
                 const expiryDate = new Date()
                 expiryDate.setDate(expiryDate.getDate() + 1)
                 localStorage.setItem('expiry', expiryDate.toISOString())
+                localStorage.setItem('token', response.data.access_token)
+
+                setTimeout(() => {
+                    setLoading(false)
+                }, 1000)
 
                 navigate('/')
             }
         } catch (error) {
             toast.error('Invalid credentials')
-            console.log(error)
+            setLoading(false)
         }
     }
 
@@ -72,8 +81,9 @@ const Login = () => {
                         <button
                             className='bg-primary text-white font-semibold py-2 rounded-2xl mt-10 w-[200px] mx-auto'
                             onClick={handleLogin}
+                            disabled={loading}
                         >
-                            Log in
+                            {loading ? 'Loading...' : 'Log in'}
                         </button>
                     </div>
                 </div>
