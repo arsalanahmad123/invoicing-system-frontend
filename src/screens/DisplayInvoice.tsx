@@ -24,9 +24,14 @@ const DisplayInvoice = () => {
     useEffect(() => {
         const getInvoice = async () => {
             try {
-                const response = await api.get(`/api/invoice/${id}`)
-                if (response.status === 200) {
-                    setInvoice(response.data.data)
+                const token = localStorage.getItem('token')
+                if (token) {
+                    const response = await api.get(`/api/invoice/${id}`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    })
+                    if (response.status === 200) {
+                        setInvoice(response.data.data)
+                    }
                 }
             } catch (error) {
                 console.log(error)

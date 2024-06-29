@@ -48,18 +48,27 @@ const GenerateInvoice = () => {
             return
         }
 
-        const response = await api.post('/api/invoice/create', {
-            to,
-            address,
-            total,
-            quantities,
-            subtotal,
-        })
+        const token = localStorage.getItem('token')
+        if (token) {
+            const response = await api.post(
+                '/api/invoice/create',
+                {
+                    to,
+                    address,
+                    total,
+                    quantities,
+                    subtotal,
+                },
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                },
+            )
 
-        if (response.status === 201) {
-            toast.success('Invoice generated')
-            const id = response.data.data
-            navigate(`/invoice/${id}`)
+            if (response.status === 201) {
+                toast.success('Invoice generated')
+                const id = response.data.data
+                navigate(`/invoice/${id}`)
+            }
         }
     }
 

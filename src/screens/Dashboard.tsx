@@ -70,10 +70,15 @@ const Dashboard = () => {
         try {
             const confirmDelete = confirm('Are u sure you want to delete?')
             if (!confirmDelete) return
-            const response = await api.delete(`/api/invoice/delete/${id}`)
-            if (response.status === 200) {
-                toast.success('Invoice deleted')
-                getInvoices()
+            const token = localStorage.getItem('token')
+            if (token) {
+                const response = await api.delete(`/api/invoice/delete/${id}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                if (response.status === 200) {
+                    toast.success('Invoice deleted')
+                    getInvoices()
+                }
             }
         } catch (error) {
             console.log(error)
