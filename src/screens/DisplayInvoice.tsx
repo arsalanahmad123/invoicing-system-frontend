@@ -47,9 +47,9 @@ const DisplayInvoice = () => {
     }, [])
 
     return (
-        <div className='max-w-full mx-auto p-4 bg-white shadow-md'>
-            <header className='flex justify-between items-center  pb-4 mb-4 relative'>
-                <div className='absolute -top-56 -left-32 h-[500px] w-[500px] rounded-full bg-blue-900 flex justify-center'>
+        <div className='max-w-full mx-auto p-4 bg-white shadow-md min-h-screen'>
+            <header className='flex justify-between items-center  pb-4 mb-4 relative flex-grow'>
+                <div className='absolute -top-56 -left-32 h-[500px] w-[500px] rounded-full bg-primary flex justify-center'>
                     <div className='mt-[250px] invoice-logo'></div>
                 </div>
                 <div></div>
@@ -65,7 +65,7 @@ const DisplayInvoice = () => {
             ) : (
                 <>
                     {' '}
-                    <section className='mb-4 mt-60 px-20'>
+                    <section className='mb-4 mt-60 px-20 flex-grow'>
                         <div className='flex justify-between mb-2'>
                             <div>
                                 <h3 className='font-bold text-2xl mb-2'>
@@ -119,7 +119,7 @@ const DisplayInvoice = () => {
                             </div>
                         </div>
                     </section>
-                    <section className='mb-4 px-20 mt-5'>
+                    <section className='mb-4 px-20 mt-5 flex-grow'>
                         <table className='w-full text-left border-collapse'>
                             <thead className='bg-primary p-5 text-white'>
                                 <tr className='border-b'>
@@ -155,7 +155,7 @@ const DisplayInvoice = () => {
                             </tbody>
                         </table>
                     </section>
-                    <section className='flex justify-between mb-4 mt-5'>
+                    <section className='flex justify-between mb-4 mt-5 flex-grow'>
                         <div className='text-right ml-auto mr-20'>
                             <p className='text-start'>
                                 {' '}
@@ -181,7 +181,7 @@ const DisplayInvoice = () => {
                 </>
             )}
 
-            <footer className='border-t pt-4 text-center'>
+            <footer className='border-t pt-4 text-center mt-auto'>
                 <span className='font-semibold text-gray-700'>
                     2024 © all rights reserved by{' '}
                     <a
