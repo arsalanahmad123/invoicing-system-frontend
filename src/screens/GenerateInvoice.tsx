@@ -18,6 +18,7 @@ const GenerateInvoice = () => {
     const [desc, setDesc] = useState('')
     const [price, setPrice] = useState(0)
     const [subtotal, setSubTotal] = useState(0)
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -38,6 +39,7 @@ const GenerateInvoice = () => {
     }
 
     const handleGenerate = async () => {
+        setLoading(true)
         if (
             to === '' ||
             address === '' ||
@@ -66,6 +68,7 @@ const GenerateInvoice = () => {
 
             if (response.status === 201) {
                 toast.success('Invoice generated')
+                setLoading(false)
                 const id = response.data.data
                 navigate(`/invoice/${id}`)
             }
@@ -167,8 +170,9 @@ const GenerateInvoice = () => {
                     <button
                         className='mt-6 max-w-[200px] bg-primary text-white font-semibold ml-auto px-4 py-1 '
                         onClick={handleGenerate}
+                        disabled={loading}
                     >
-                        Generate
+                        {loading ? 'Generating...' : 'Generate'}
                     </button>
                 </div>
             </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { api } from '../api/api'
 import toast from 'react-hot-toast'
 import { Link } from 'react-router-dom'
+import Loading from '../components/Loading'
 
 interface Invoice {
     _id: number
@@ -15,9 +16,11 @@ const Dashboard = () => {
     const [invoices, setInvoices] = useState<Invoice[]>([])
     const [searchByID, setSearchByID] = useState('')
     const [searchByName, setSearchByName] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const getInvoices = async () => {
         try {
+            setLoading(true)
             const token = localStorage.getItem('token')
             if (token) {
                 const response = await api.get('/api/invoice', {
@@ -25,10 +28,12 @@ const Dashboard = () => {
                 })
                 if (response.status === 200) {
                     setInvoices(response.data.data)
+                    setLoading(false)
                 }
             }
         } catch (error) {
             console.log(error)
+            setLoading(false)
         }
     }
     useEffect(() => {
@@ -144,16 +149,23 @@ const Dashboard = () => {
                                     <Link
                                         className='btn btn-xs  ml-2'
                                         to={`/invoice/${invoice._id}`}
-                                        target='_blank'
                                     >
                                         View
                                     </Link>
                                 </td>
                             </tr>
                         ))}
+                        {invoices?.length === 0 && (
+                            <tr>
+                                <td colSpan={6} className='text-center'>
+                                    No invoices found
+                                </td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>
+            {loading && <Loading />}
         </div>
     )
 }
