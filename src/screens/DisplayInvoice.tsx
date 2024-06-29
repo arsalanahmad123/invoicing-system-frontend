@@ -166,7 +166,7 @@ const DisplayInvoice = () => {
                             </p>
                             <p className='text-start'>
                                 {' '}
-                                <span className='font-bold mr-3'>VAT:</span> 20%
+                                <span className='font-bold mr-3'>VAT:</span> 0%
                             </p>
                             <p className='text-start border-t-2 border-gray-500 mt-2'>
                                 {' '}

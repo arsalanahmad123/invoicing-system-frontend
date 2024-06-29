@@ -77,7 +77,7 @@ const GenerateInvoice = () => {
     }
 
     useEffect(() => {
-        const VAT = subtotal * 0.2
+        const VAT = subtotal * 0
         setTotal(subtotal + VAT)
     }, [subtotal])
 
