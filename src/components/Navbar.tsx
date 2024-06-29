@@ -35,7 +35,13 @@ const Navbar = () => {
             </div>
             <div className='flex flex-row gap-5 justify-start items-center'>
                 <div
-                    className='text-lg font-bold bg-white text-primary px-2 py-1 rounded-sm cursor-pointer'
+                    className='text-lg font-bold hover:bg-white hover:text-primary px-2 py-1 rounded-sm cursor-pointer transition-all duration-150 ease-in'
+                    onClick={() => navigate('/')}
+                >
+                    Dashboard
+                </div>
+                <div
+                    className='text-lg font-bold hover:bg-white hover:text-primary px-2 py-1 rounded-sm cursor-pointer transition-all duration-150 ease-in'
                     onClick={handleClick}
                 >
                     Generate Invoice

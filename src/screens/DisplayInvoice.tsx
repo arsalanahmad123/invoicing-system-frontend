@@ -1,13 +1,40 @@
-import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { api } from '../api/api'
 
+interface Quantity {
+    quantity: number
+    description: string
+    unitprice: number
+}
+
+interface Invoice {
+    _id: number
+    to: string
+    address: string
+    total: number
+    quantities: Quantity[]
+    subtotal: number
+}
 const DisplayInvoice = () => {
-    const location = useLocation()
+    const [invoice, setInvoice] = useState<Invoice>()
 
-    interface Quantity {
-        quantity: number
-        description: string
-        unitprice: number
-    }
+    const { id } = useParams()
+
+    useEffect(() => {
+        const getInvoice = async () => {
+            try {
+                const response = await api.get(`/api/invoice/${id}`)
+                if (response.status === 200) {
+                    setInvoice(response.data.data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        getInvoice()
+    }, [])
 
     return (
         <div className='max-w-full mx-auto p-4 bg-white shadow-md'>
@@ -26,10 +53,10 @@ const DisplayInvoice = () => {
                     <div>
                         <h3 className='font-bold text-2xl mb-2'>BILL TO</h3>
                         <p className='uppercase font-semibold text-lg'>
-                            {location.state.to}
+                            {invoice?.to}
                         </p>
                         <p className='font-medium max-w-[250px]'>
-                            {location.state.address}
+                            {invoice?.address}
                         </p>
                     </div>
                     <div>
@@ -63,7 +90,7 @@ const DisplayInvoice = () => {
                                 year: 'numeric', // Full year
                             })}
                         </p>
-                        <p>Invoice: {location.state.id}</p>
+                        <p>Invoice: {invoice?._id}</p>
                     </div>
                 </div>
             </section>
@@ -79,7 +106,7 @@ const DisplayInvoice = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {location.state.quantities.map((quantity: Quantity) => (
+                        {invoice?.quantities.map((quantity: Quantity) => (
                             <tr key={quantity.quantity}>
                                 <td className='p-2 font-bold'>
                                     <p>{quantity.quantity}</p>
@@ -107,7 +134,7 @@ const DisplayInvoice = () => {
                     <p className='text-start'>
                         {' '}
                         <span className='font-bold mr-3'>Sub-Total:</span> €
-                        {location.state.subtotal}
+                        {invoice?.subtotal}
                     </p>
                     <p className='text-start'>
                         {' '}
@@ -116,7 +143,7 @@ const DisplayInvoice = () => {
                     <p className='text-start border-t-2 border-gray-500 mt-2'>
                         {' '}
                         <span className='font-bold mr-3'> Total:</span> €
-                        {location.state.total}
+                        {invoice?.total}
                     </p>
                 </div>
             </section>

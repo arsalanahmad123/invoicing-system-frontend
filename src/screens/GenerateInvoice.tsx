@@ -52,21 +52,14 @@ const GenerateInvoice = () => {
             to,
             address,
             total,
+            quantities,
+            subtotal,
         })
 
         if (response.status === 201) {
+            toast.success('Invoice generated')
             const id = response.data.data
-
-            navigate('/invoice', {
-                state: {
-                    id,
-                    to,
-                    address,
-                    subtotal,
-                    total,
-                    quantities,
-                },
-            })
+            navigate(`/invoice/${id}`)
         }
     }
 

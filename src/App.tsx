@@ -7,9 +7,19 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import GenerateInvoice from './screens/GenerateInvoice'
 import DisplayInvoice from './screens/DisplayInvoice'
+import { useState, useEffect } from 'react'
 
 function App() {
     const { loggedIn } = useAuth()
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        setLoading(false)
+    }, [])
+
+    if (loading) {
+        return <div>Loading...</div>
+    }
 
     return (
         <>
@@ -42,7 +52,7 @@ function App() {
                         }
                     />
                     <Route
-                        path='/invoice'
+                        path='/invoice/:id'
                         element={
                             loggedIn ? (
                                 <DisplayInvoice />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api/api'
 import toast from 'react-hot-toast'
+import { useNavigate, Link } from 'react-router-dom'
 
 interface Invoice {
     _id: number
@@ -14,6 +15,7 @@ const Dashboard = () => {
     const [invoices, setInvoices] = useState<Invoice[]>([])
     const [searchByID, setSearchByID] = useState('')
     const [searchByName, setSearchByName] = useState('')
+    const navigate = useNavigate()
 
     const getInvoices = async () => {
         try {
@@ -125,6 +127,13 @@ const Dashboard = () => {
                                     >
                                         Delete
                                     </button>
+                                    <Link
+                                        className='btn btn-xs  ml-2'
+                                        to={`/invoice/${invoice._id}`}
+                                        target='_blank'
+                                    >
+                                        View
+                                    </Link>
                                 </td>
                             </tr>
                         ))}
