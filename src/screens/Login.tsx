@@ -34,6 +34,7 @@ const Login = () => {
                 navigate('/')
             }
         } catch (error) {
+            toast.error('Invalid credentials')
             console.log(error)
         }
     }
